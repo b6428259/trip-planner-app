@@ -11,6 +11,7 @@ com/tripplanner/entity/Trip.class
 com/tripplanner/entity/User.class
 com/tripplanner/entity/TripMember$Status.class
 com/tripplanner/entity/Message$MessageType.class
+com/tripplanner/entity/User$UserBuilder.class
 com/tripplanner/entity/TripMember.class
 com/tripplanner/dto/UserResponse.class
 com/tripplanner/entity/Notification.class
