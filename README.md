@@ -130,13 +130,13 @@ The application supports multiple database options for different development and
 
 ### H2 (In-Memory) - Development
 ```bash
-mvn spring-boot:run -Dspring.profiles.active=h2
+SPRING_PROFILES_ACTIVE=h2 mvn spring-boot:run
 # Access H2 Console: http://localhost:8080/h2-console
 ```
 
 ### SQLite (File-based) - Development
 ```bash
-mvn spring-boot:run -Dspring.profiles.active=sqlite
+SPRING_PROFILES_ACTIVE=sqlite mvn spring-boot:run
 ```
 
 ### MySQL - Production
@@ -145,7 +145,7 @@ mvn spring-boot:run -Dspring.profiles.active=sqlite
 docker run --name mysql-trip -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=tripdb -p 3306:3306 -d mysql:8.0
 
 # Run application
-mvn spring-boot:run -Dspring.profiles.active=mysql
+SPRING_PROFILES_ACTIVE=mysql mvn spring-boot:run
 ```
 
 ### PostgreSQL - Production (Default)
@@ -154,7 +154,7 @@ mvn spring-boot:run -Dspring.profiles.active=mysql
 docker run --name postgres-trip -e POSTGRES_PASSWORD=password -e POSTGRES_DB=tripdb -p 5432:5432 -d postgres:15
 
 # Run application
-mvn spring-boot:run -Dspring.profiles.active=postgres
+SPRING_PROFILES_ACTIVE=postgres mvn spring-boot:run
 ```
 
 ### Multiple Database Docker Compose
@@ -163,10 +163,10 @@ mvn spring-boot:run -Dspring.profiles.active=postgres
 docker-compose up -d
 
 # Run with PostgreSQL
-mvn spring-boot:run -Dspring.profiles.active=postgres
+SPRING_PROFILES_ACTIVE=postgres mvn spring-boot:run
 
 # Run with MySQL  
-mvn spring-boot:run -Dspring.profiles.active=mysql
+SPRING_PROFILES_ACTIVE=mysql mvn spring-boot:run
 ```
 
 ## Environment Variables
