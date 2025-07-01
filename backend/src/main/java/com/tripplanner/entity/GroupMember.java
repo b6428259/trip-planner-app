@@ -1,12 +1,20 @@
 package com.tripplanner.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "group_members", indexes = {
     @Index(name = "idx_group_member_group", columnList = "group_id"),
     @Index(name = "idx_group_member_user", columnList = "user_id")
@@ -20,6 +28,7 @@ public class GroupMember {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private Role role = Role.MEMBER;
 
     @CreatedDate
@@ -42,54 +51,11 @@ public class GroupMember {
         MEMBER
     }
 
-    // Constructors
-    public GroupMember() {}
-
+    // Constructor for creating group member with basic fields
     public GroupMember(Group group, User user, Role role) {
         this.group = group;
         this.user = user;
         this.role = role;
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public LocalDateTime getJoinedAt() {
-        return joinedAt;
-    }
-
-    public void setJoinedAt(LocalDateTime joinedAt) {
-        this.joinedAt = joinedAt;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     // Helper methods

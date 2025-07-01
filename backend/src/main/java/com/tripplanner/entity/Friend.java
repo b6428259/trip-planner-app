@@ -1,12 +1,22 @@
 package com.tripplanner.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.AccessLevel;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "friends", indexes = {
     @Index(name = "idx_friend_requester", columnList = "requester_id"),
     @Index(name = "idx_friend_addressee", columnList = "addressee_id"),
@@ -21,6 +31,8 @@ public class Friend {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
+    @Setter(AccessLevel.NONE) // Custom setter needed for business logic
     private Status status = Status.PENDING;
 
     @CreatedDate
@@ -46,64 +58,19 @@ public class Friend {
         BLOCKED
     }
 
-    // Constructors
-    public Friend() {}
-
+    // Constructor for creating friend relationship
     public Friend(User requester, User addressee) {
         this.requester = requester;
         this.addressee = addressee;
+        this.status = Status.PENDING;
     }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
+    // Custom setter for status with business logic
     public void setStatus(Status status) {
         this.status = status;
         if (status == Status.ACCEPTED && acceptedAt == null) {
             this.acceptedAt = LocalDateTime.now();
         }
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getAcceptedAt() {
-        return acceptedAt;
-    }
-
-    public void setAcceptedAt(LocalDateTime acceptedAt) {
-        this.acceptedAt = acceptedAt;
-    }
-
-    public User getRequester() {
-        return requester;
-    }
-
-    public void setRequester(User requester) {
-        this.requester = requester;
-    }
-
-    public User getAddressee() {
-        return addressee;
-    }
-
-    public void setAddressee(User addressee) {
-        this.addressee = addressee;
     }
 
     // Helper methods

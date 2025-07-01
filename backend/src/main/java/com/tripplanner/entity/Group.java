@@ -3,6 +3,10 @@ package com.tripplanner.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,7 +15,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "groups", indexes = {
     @Index(name = "idx_group_creator", columnList = "creator_id")
 })
@@ -31,6 +39,7 @@ public class Group {
     private String description;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean active = true;
 
     @CreatedDate
@@ -46,80 +55,16 @@ public class Group {
     private User creator;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
     private List<GroupMember> members = new ArrayList<>();
 
-    // Constructors
-    public Group() {}
-
+    // Constructor for creating group with basic fields
     public Group(String name, String description, User creator) {
         this.name = name;
         this.description = description;
         this.creator = creator;
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
-
-    public List<GroupMember> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<GroupMember> members) {
-        this.members = members;
+        this.active = true;
+        this.members = new ArrayList<>();
     }
 
     // Helper methods

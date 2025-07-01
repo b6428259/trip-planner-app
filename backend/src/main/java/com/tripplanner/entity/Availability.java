@@ -1,13 +1,21 @@
 package com.tripplanner.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "availabilities", indexes = {
     @Index(name = "idx_availability_trip", columnList = "trip_id"),
     @Index(name = "idx_availability_user", columnList = "user_id"),
@@ -41,71 +49,12 @@ public class Availability {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // Constructors
-    public Availability() {}
-
+    // Constructor for creating availability with basic fields
     public Availability(Trip trip, User user, LocalDate startDate, LocalDate endDate) {
         this.trip = trip;
         this.user = user;
         this.startDate = startDate;
         this.endDate = endDate;
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Trip getTrip() {
-        return trip;
-    }
-
-    public void setTrip(Trip trip) {
-        this.trip = trip;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     // Helper methods
