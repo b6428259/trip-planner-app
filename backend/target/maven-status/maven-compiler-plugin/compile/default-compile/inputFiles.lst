@@ -1,0 +1,14 @@
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/dto/LoginRequest.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/dto/RegisterRequest.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/entity/TripMember.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/entity/Notification.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/dto/UserResponse.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/entity/GroupMember.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/TripPlannerApplication.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/entity/Trip.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/entity/Friend.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/entity/User.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/dto/AuthResponse.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/entity/Availability.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/entity/Group.java
+/home/runner/work/trip-planner-app/trip-planner-app/backend/src/main/java/com/tripplanner/entity/Message.java
