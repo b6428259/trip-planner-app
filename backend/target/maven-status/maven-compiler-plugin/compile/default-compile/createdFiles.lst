@@ -1,8 +1,12 @@
+com/tripplanner/entity/Trip$TripBuilder.class
 com/tripplanner/entity/Friend$Status.class
+com/tripplanner/entity/Availability$AvailabilityBuilder.class
 com/tripplanner/entity/Message.class
 com/tripplanner/entity/GroupMember.class
 com/tripplanner/entity/GroupMember$Role.class
 com/tripplanner/entity/User.class
+com/tripplanner/entity/TripMember$TripMemberBuilder.class
+com/tripplanner/entity/Notification$NotificationBuilder.class
 com/tripplanner/entity/User$UserBuilder.class
 com/tripplanner/entity/TripMember.class
 com/tripplanner/dto/UserResponse.class
@@ -10,6 +14,7 @@ com/tripplanner/entity/Availability.class
 com/tripplanner/entity/Notification$NotificationType.class
 com/tripplanner/dto/AuthResponse.class
 com/tripplanner/dto/RegisterRequest.class
+com/tripplanner/entity/Message$MessageBuilder.class
 com/tripplanner/entity/TripMember$Role.class
 com/tripplanner/entity/Group.class
 com/tripplanner/TripPlannerApplication.class

@@ -3,6 +3,10 @@ package com.tripplanner.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,7 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Data
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "trips", indexes = {
     @Index(name = "idx_trip_creator", columnList = "creator_id"),
     @Index(name = "idx_trip_share_token", columnList = "share_token"),
@@ -41,16 +48,21 @@ public class Trip {
     private LocalDate endDate;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean isPublic = false;
 
     @Column(unique = true)
-    private String shareToken;
+    @Builder.Default
+    private String shareToken = UUID.randomUUID().toString();
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean active = true;
 
     // Budget and cost tracking
     private Double estimatedBudget;
+    
+    @Builder.Default
     private String currency = "USD";
 
     @CreatedDate
@@ -66,161 +78,34 @@ public class Trip {
     private User creator;
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
     private List<TripMember> members = new ArrayList<>();
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
     private List<Availability> availabilities = new ArrayList<>();
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
     private List<Message> messages = new ArrayList<>();
 
-    // Constructors
+    // Constructor with custom share token generation
     public Trip() {
         this.shareToken = UUID.randomUUID().toString();
+        this.isPublic = false;
+        this.active = true;
+        this.currency = "USD";
+        this.members = new ArrayList<>();
+        this.availabilities = new ArrayList<>();
+        this.messages = new ArrayList<>();
     }
 
+    // Constructor for creating trip with basic fields
     public Trip(String name, String description, User creator) {
         this();
         this.name = name;
         this.description = description;
         this.creator = creator;
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public Boolean getIsPublic() {
-        return isPublic;
-    }
-
-    public void setIsPublic(Boolean isPublic) {
-        this.isPublic = isPublic;
-    }
-
-    public String getShareToken() {
-        return shareToken;
-    }
-
-    public void setShareToken(String shareToken) {
-        this.shareToken = shareToken;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Double getEstimatedBudget() {
-        return estimatedBudget;
-    }
-
-    public void setEstimatedBudget(Double estimatedBudget) {
-        this.estimatedBudget = estimatedBudget;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
-
-    public List<TripMember> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<TripMember> members) {
-        this.members = members;
-    }
-
-    public List<Availability> getAvailabilities() {
-        return availabilities;
-    }
-
-    public void setAvailabilities(List<Availability> availabilities) {
-        this.availabilities = availabilities;
-    }
-
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
     }
 
     // Helper methods
