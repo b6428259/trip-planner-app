@@ -13,7 +13,7 @@ A comprehensive trip planning web application for groups of friends with modern 
 
 ### Backend
 - **Java Spring Boot** with REST APIs
-- **PostgreSQL** database
+- **Multiple Database Support** (PostgreSQL, MySQL, H2, SQLite)
 - **JWT Authentication** with bcrypt
 - **WebSocket** for real-time messaging
 - **Docker** for containerization
@@ -78,7 +78,7 @@ A comprehensive trip planning web application for groups of friends with modern 
 ### Prerequisites
 - Node.js 18+ and npm/yarn
 - Java 17+
-- PostgreSQL 14+
+- Database (PostgreSQL 14+, MySQL 8.0+, or use H2/SQLite for development)
 - Docker (optional, for containerized development)
 
 ### Development Setup
@@ -123,6 +123,51 @@ docker-compose logs -f
 ## API Documentation
 
 The API documentation is available at `http://localhost:8080/swagger-ui.html` when the backend is running.
+
+## Database Options
+
+The application supports multiple database options for different development and production needs:
+
+### H2 (In-Memory) - Development
+```bash
+SPRING_PROFILES_ACTIVE=h2 mvn spring-boot:run
+# Access H2 Console: http://localhost:8080/h2-console
+```
+
+### SQLite (File-based) - Development
+```bash
+SPRING_PROFILES_ACTIVE=sqlite mvn spring-boot:run
+```
+
+### MySQL - Production
+```bash
+# Start MySQL with Docker
+docker run --name mysql-trip -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=tripdb -p 3306:3306 -d mysql:8.0
+
+# Run application
+SPRING_PROFILES_ACTIVE=mysql mvn spring-boot:run
+```
+
+### PostgreSQL - Production (Default)
+```bash
+# Start PostgreSQL with Docker  
+docker run --name postgres-trip -e POSTGRES_PASSWORD=password -e POSTGRES_DB=tripdb -p 5432:5432 -d postgres:15
+
+# Run application
+SPRING_PROFILES_ACTIVE=postgres mvn spring-boot:run
+```
+
+### Multiple Database Docker Compose
+```bash
+# Start both PostgreSQL and MySQL services
+docker-compose up -d
+
+# Run with PostgreSQL
+SPRING_PROFILES_ACTIVE=postgres mvn spring-boot:run
+
+# Run with MySQL  
+SPRING_PROFILES_ACTIVE=mysql mvn spring-boot:run
+```
 
 ## Environment Variables
 
